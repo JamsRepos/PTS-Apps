@@ -60,7 +60,7 @@
       set_fact:
         pg_volumes:
           - '/etc/localtime:/etc/localtime:ro'
-          - '$PWD:/app'
+          - '/opt/appdata/paycord:/app'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
