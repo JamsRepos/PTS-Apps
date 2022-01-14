@@ -17,23 +17,6 @@
         extport: '56733'
         image: 'wardpearce/paycord:latest'
 
-    - name: 'Setting {{pgrole}} ENV'
-      set_fact:
-        pg_env:
-          DISCORD_CLIENT_ID: '...'
-          DISCORD_CLIENT_SECRET: '...'
-          DISCORD_BOT_TOKEN: '...'
-          DISCORD_GUILD_ID: '...'
-          ROOT_DISCORD_IDS: '...'
-          STRIPE_WEBHOOK_SECRET: '...'
-          STRIPE_API_KEY: '...'
-          LOGO_URL: 'https://i.imgur.com/d5SBQ6v.png'
-          PAGE_NAME: 'Karna.ge'
-          CURRENCY: 'USD'
-          DISCORD_API_URL: 'https://discord.com/api'
-          SUBSCRIPTION_RECURRENCE: 'month'
-          SUBSCRIPTION_INTERVAL: '1'
-
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
       include_tasks: '/opt/communityapps/apps/_core.yml'
@@ -67,6 +50,19 @@
         pg_env:
           PUID: '1000'
           PGID: '1000'
+          DISCORD_CLIENT_ID: '...'
+          DISCORD_CLIENT_SECRET: '...'
+          DISCORD_BOT_TOKEN: '...'
+          DISCORD_GUILD_ID: '...'
+          ROOT_DISCORD_IDS: '...'
+          STRIPE_WEBHOOK_SECRET: '...'
+          STRIPE_API_KEY: '...'
+          LOGO_URL: 'https://i.imgur.com/d5SBQ6v.png'
+          PAGE_NAME: 'Karna.ge'
+          CURRENCY: 'USD'
+          DISCORD_API_URL: 'https://discord.com/api'
+          SUBSCRIPTION_RECURRENCE: 'month'
+          SUBSCRIPTION_INTERVAL: '1'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
