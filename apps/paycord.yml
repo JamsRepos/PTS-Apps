@@ -23,6 +23,10 @@
           STRIPE_API_KEY="..."
           LOGO_URL="https://i.imgur.com/d5SBQ6v.png"
           PAGE_NAME="Karna.ge"
+          CURRENCY="USD"
+          DISCORD_API_URL="https://discord.com/api"
+          SUBSCRIPTION_RECURRENCE="month"
+          SUBSCRIPTION_INTERVAL=1
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
