@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+# Title:      PGBlitz (Reference Title File)
+# Author(s):  Admin9705
+# URL:        https://pgblitz.com - http://github.pgblitz.com
+# GNU:        General Public License v3.0
 ################################################################################
 ---
 - hosts: localhost
@@ -9,7 +13,31 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'paycord'
-        image: 'wardpearce/paycord'
+        intport: '80'
+        extport: '56733'
+        image: 'wardpearce/paycord:latest'
+
+    # CORE (MANDATORY) ############################################################
+    - name: 'Including cron job'
+      include_tasks: '/opt/communityapps/apps/_core.yml'
+
+    # LABELS ######################################################################
+    - name: 'Adding Traefik'
+      set_fact:
+        pg_labels:
+          traefik.enable: 'true'
+          traefik.port: '{{intport}}'
+          traefik.frontend.auth.forward.address: '{{gauth}}'
+          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}}{{tldset}}{{cname}}'
+          traefik.frontend.headers.SSLHost: '{{domain.stdout}}'
+          traefik.frontend.headers.SSLRedirect: 'true'
+          traefik.frontend.headers.STSIncludeSubdomains: 'true'
+          traefik.frontend.headers.STSPreload: 'true'
+          traefik.frontend.headers.STSSeconds: '315360000'
+          traefik.frontend.headers.browserXSSFilter: 'true'
+          traefik.frontend.headers.contentTypeNosniff: 'true'
+          traefik.frontend.headers.customResponseHeaders: 'X-Robots-Tag:noindex,nofollow,nosnippet,noarchive,notranslate,noimageindex'
+          traefik.frontend.headers.forceSTSHeader: 'true'
 
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
@@ -19,19 +47,8 @@
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
-          DISCORD_CLIENT_ID="..."
-          DISCORD_CLIENT_SECRET="..."
-          DISCORD_BOT_TOKEN="..."
-          DISCORD_GUILD_ID="..."
-          ROOT_DISCORD_IDS="...,..."
-          STRIPE_WEBHOOK_SECRET="..."
-          STRIPE_API_KEY="..."
-          LOGO_URL="https://i.imgur.com/d5SBQ6v.png"
-          PAGE_NAME="Karna.ge"
-          CURRENCY="USD"
-          DISCORD_API_URL="https://discord.com/api"
-          SUBSCRIPTION_RECURRENCE="month"
-          SUBSCRIPTION_INTERVAL=1
+          PUID: '1000'
+          PGID: '1000'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
@@ -39,6 +56,8 @@
         name: '{{pgrole}}'
         image: '{{image}}'
         pull: yes
+        published_ports:
+          - '{{ports.stdout}}{{extport}}:{{intport}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
         restart_policy: unless-stopped
@@ -47,8 +66,4 @@
             aliases:
               - '{{pgrole}}'
         state: started
-
-    - name: 'Stopping {{pgrole}}. Go configure Environment Variables in Portainer.'
-      docker_container:
-        name: '{{pgrole}}'
-        state: stopped
+        labels: '{{pg_labels}}'
