@@ -11,6 +11,11 @@
         pgrole: 'paycord'
         image: 'wardpearce/paycord'
 
+    - name: 'Setting {{pgrole}} Volumes'
+      set_fact:
+        pg_volumes:
+          - '/etc/localtime:/etc/localtime:ro'
+
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
