@@ -63,6 +63,7 @@
           DISCORD_API_URL: 'https://discord.com/api'
           SUBSCRIPTION_RECURRENCE: 'month'
           SUBSCRIPTION_INTERVAL: '1'
+          MESSAGE_ON_COMPLETE: 'Thank you {username} for subscribing to {name} for {currency_symbol}{price}'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
