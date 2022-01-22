@@ -64,7 +64,7 @@
           SUBSCRIPTION_INTERVAL: '1'
           MESSAGE_ON_COMPLETE: 'Thank you {username} for subscribing to {name} for {currency_symbol}{price}'
           MONGO_IP: 'localhost'
-          MONGO_PORT: 27017
+          MONGO_PORT: `27017`
           MONGO_DB: 'paycord'
           MONTHLY_GOAL: '0.0'
 
