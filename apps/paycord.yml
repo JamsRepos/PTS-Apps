@@ -43,6 +43,7 @@
         pg_volumes:
           - '/etc/localtime:/etc/localtime:ro'
           - '/opt/appdata/{{pgrole}}:/app'
+          - '/opt/appdata/{{pgrole}}:/app/app'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
@@ -67,6 +68,7 @@
           MONGO_PORT: '27017'
           MONGO_DB: 'paycord'
           MONTHLY_GOAL: '0.0'
+          MONTHLY_GOAL_PARAGRAPH: 'The goal below indicates how much our services cost a month to run.\nYou can help support our service by purchasing one of the packages below.'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
