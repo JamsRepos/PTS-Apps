@@ -13,7 +13,7 @@
     - name: 'Set Known Facts'
       set_fact:
         pgrole: 'jellyseerr'
-        intport: '5055's
+        intport: '5055'
         extport: '5055'
         image: 'fallenbagel/jellyseerr:latest'
 
