@@ -23,7 +23,7 @@
 
     - name: 'XML Check'
       stat:
-        path: /opt/appdata/jellyfin/config/system.xml
+        path: /opt/appdata/{{pgrole}}/config/system.xml
       register: xmlcheck
 
     # LABELS ######################################################################
@@ -47,7 +47,7 @@
       set_fact:
         pg_volumes:
           - '{{path.stdout}}:{{path.stdout}}'
-          - '/opt/appdata/jellyfin:/config'
+          - '/opt/appdata/{{pgrole}}:/config'
           - '/opt/transcodes:/transcode'
           - '/var/run/docker.sock:/var/run/docker.sock'
 
