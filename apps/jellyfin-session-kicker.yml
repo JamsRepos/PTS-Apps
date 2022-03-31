@@ -39,7 +39,7 @@
           RESET_AFTER_IN_HOURS: '24.0'
 
           HTTP_HOST: 'session_kicker'
-          HTTP_PORT: 80
+          HTTP_PORT: '80'
 
           MONGO_DB: 'session_timer'
           MONGO_HOST: 'session_kicker_mongo'
