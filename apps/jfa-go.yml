@@ -41,11 +41,9 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/var/run/docker.sock:/var/run/docker.sock'
           - '/opt/appdata/jfa-go:/data'
-          - '/opt/appdata/jellyfin'
-          - '/sys:/host/sys:ro'
-          - '/proc:/host/proc:ro'
+          - '/opt/appdata/jellyfin:/jf'
+          - '/etc/localtime:/etc/localtime:ro'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
