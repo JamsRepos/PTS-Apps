@@ -12,10 +12,10 @@
     # FACTS #######################################################################
     - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'uvdesk'
+        pgrole: 'osticket'
         intport: '80'
         extport: '6171'
-        image: 'dietermartens/uvdesk'
+        image: 'devinsolutions/osticket'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
@@ -41,20 +41,26 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
+          - '/opt/appdata/{{pgrole}}:/var/lib/osticket'
           - '/etc/localtime:/etc/localtime:ro'
-          - '/opt/appdata/{{pgrole}}:/var/www/html'
 
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
-          APP_ENV: 'dev'
-          APP_SECRET: '...'
-          TZ: 'Europe/London'
-          APP_TIMEZONE: 'Europe/London'
-          APP_CURRENCY: 'GBP'
-          CRON_USER1: 'root'
-          CRON_SCHEDULE1: '*/5 * * * *'
-          CRON_COMMAND1: 'cd /var/www/html && php bin/console uvdesk:refresh-mailbox info@domain.tld support@domain.tld'
+          MYSQL_HOST: 'localhost'
+          MYSQL_PREFIX: 'ost_'
+          MYSQL_USER: 'osticket'
+          MYSQL_PASSWORD: 'secret'
+          MYSQL_DATABASE: 'osticket'
+          SMTP_HOST: 'localhost'
+          SMTP_PORT: '465'
+          SMTP_FROM: 'email address'
+          SMTP_TLS: '1'
+          SMTP_TLS_CERTS: '/path/to/cert/cert.file'
+          SMTP_USER: 'email address'
+          SMTP_PASSWORD: 'secret'
+          CRON_INTERVAL: '5'
+          INSTALL_EMAIL: 'email address'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
