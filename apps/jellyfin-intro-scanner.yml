@@ -29,7 +29,6 @@
           JELLYFIN_URL: 'http://jellyfin:8096'
           JELLYFIN_USERNAME: 'root'
           JELLYFIN_PASSWORD: 'password'
-          PATH_MAP: '/mnt/unionfs/tv::/mnt/unionfs/tv'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
