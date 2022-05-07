@@ -43,7 +43,6 @@
             aliases:
               - '{{pgrole}}'
         state: started
-        labels: '{{pg_labels}}'
 
     - name: 'Stopping {{pgrole}}. Go configure Environment Variables in Portainer.'
       docker_container:
